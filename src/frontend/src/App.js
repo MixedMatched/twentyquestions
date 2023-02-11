@@ -4,6 +4,8 @@ import socketIOClient from 'socket.io-client';
 import './App.css';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 var room = '0';
 var name = 'Guest';
@@ -197,10 +199,39 @@ function App() {
         <p>{winStatus ? <Confetti width={width} height={height}/> : ""}</p>
         <div class="topnav">
           SOMETHINGLE
-          <a href="#friends">Play with Friends</a>
-          <a href="#settings">Settings</a>
-          <a href="#help">How to play</a>
-          <a href="#about">About</a>
+          <div class="right">
+            <a href="#friends">Play with Friends</a>
+            <a href="#settings">Settings</a>
+            <Popup
+            trigger={<a href="#How to play"> How to Play </a>}
+            modal
+            nested
+          >
+            {close => (
+              <div className="modal">
+                <button className="close" onClick={close}>
+                  &times;
+                </button>
+                <div className="header"> How to Play </div>
+                <div className="content">
+                  {' '}
+                  To win, guess the word using only yes or no questions.  
+                  <br />
+                  If you think you know the word, type it in and press the 'Guess' button.
+                </div>
+                <div className="actions">
+                  <Popup
+                    trigger={<button className="button"> Trigger </button>}
+                    position="top center"
+                    nested
+                  >
+                  </Popup>
+                </div>
+              </div>
+            )}
+          </Popup>
+            <a href="#about">About</a>
+          </div>
         </div> 
         <div>
           <form onSubmit={handleAsk}>
