@@ -47,6 +47,7 @@ function App() {
   const [history, setHistory] = useState([]);
   const [question, setQuestion] = useState('');
   const [winStatus, setWinStatus] = useState(false);
+  const [winWord, setWinWord] = useState('');
   const [textRoom, setRoom] = useState(0);
   const [textName, setName] = useState('Guest');
 
@@ -67,12 +68,20 @@ function App() {
   });
 
   socket.on('guess_reply', (reply) => {
-    setWinStatus(reply.correct);
+    if (reply.correct) {
+      setWinStatus(reply.correct);
+      setWinWord(reply.guess)
+    }
     setHistory(() => [...history, reply]);
   });
 
   socket.on('history', (reply) => {
     setHistory(reply.history);
+  });
+
+  socket.on('reset', (reply) => {
+    setHistory([]);
+    setWinStatus(false);
   });
 
   const sendQuestion = async (question, history) => {
@@ -115,6 +124,23 @@ function App() {
     );
   }
 
+  const resetGame = () => {
+    socket.emit(
+      "reset",
+      {
+        'room': room,
+      }
+    )
+  }
+
+  const handleReset = (e) => {
+    console.log("reset");
+    e.preventDefault();
+    resetGame();
+    setHistory([]);
+    setWinStatus(false);
+  }
+
   const handleAsk = (e) => {
     console.log("ask");
     e.preventDefault();
@@ -129,11 +155,6 @@ function App() {
     setQuestion('');
   }
 
-  const resetGame = () => {
-    setHistory([]);
-    setWinStatus(false);
-  }
-
   const handleRoomChange = (e) => {
     console.log("room change");
     e.preventDefault();
@@ -142,7 +163,8 @@ function App() {
     name = textName;
     setRoom('');
     setName('');
-    resetGame();
+    setHistory([]);
+    setWinStatus(false);
   }
 
   let historyAsList = Object.entries(history).reverse().map(([index, hist]) => {
@@ -160,11 +182,19 @@ function App() {
   const inputProps = useInput();
   const { width, height } = useWindowSize();
 
+  const winBox = () => 
+  <article>
+    <Confetti width={width} height={height}/>
+    <h2>Winner!</h2>
+    <p>The word was {winWord}.</p>
+    <p>You got the correct word in {history.length} tries.</p>
+    <Button type="submit" onClick={handleReset}>Try again?</Button>
+  </article>
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>{winStatus ? <Confetti width={width} height={height}/> : ""}</p>
+        <p>{winStatus ? winBox() : ""}</p>
         <div>
           <form onSubmit={handleAsk}>
             <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>

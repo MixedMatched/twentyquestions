@@ -45,6 +45,17 @@ def on_leave(data):
     print(f"Room: {room} left...")
     leave_room(room)
 
+@socket_.on('reset')
+def on_reset(data):
+    room = data['room']
+    
+    print(f"Resetting room: {room}...")
+
+    games[room]['word'] = generate_word()
+    games[room]['history'] = []
+
+    socket_.emit('reset', to=room)
+
 @socket_.on('request_history')
 def request_history(data):
     room = data['room']
