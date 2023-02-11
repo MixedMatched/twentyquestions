@@ -45,6 +45,16 @@ border-radius: 5px;
 margin: 10px 0px;
 `;
 
+function getColor(answer) {
+  if(answer.toLowerCase().includes("yes")) {
+    return "green";
+  } else if (answer.toLowerCase().includes("no") && !answer.toLowerCase().includes("not")) {
+    return "red";
+  } else {
+    return "white";
+  }
+}
+
 function App() {
   const [history, setHistory] = useState([]);
   const [question, setQuestion] = useState('');
@@ -172,7 +182,7 @@ function App() {
   let historyAsList = Object.entries(history).reverse().map(([index, hist]) => {
     console.log("i hate javascript: index -> " + index + " history data thing => " + hist.name + hist.question)
     if (hist.type === 'question') {
-      return <li key={index} style={{color: hist.answer=== "Yes." ? "green" : hist.answer === "No." ? "red" : "white" }}>
+      return <li key={index} style={{color: getColor(hist.answer)}}>
         {hist.name} asked: "{hist.question}" which was replied to with "{hist.answer}"</li>
     } else if (hist.type === 'guess') {
       return <li key={index}>{hist.name} guessed: {hist.guess}, which was {hist.correct ? "" : "not "}correct</li>
@@ -232,7 +242,7 @@ function App() {
             <a href="#about">About</a>
           </div>
         </div> 
-        {winStatus ? <p>winBox()</p> : ""}
+        {winStatus ? <p> {winBox()} </p> : ""}
         <div>
           <form onSubmit={handleAsk}>
             <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
