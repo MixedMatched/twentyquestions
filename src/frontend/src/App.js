@@ -24,12 +24,15 @@ function App() {
 
   socket.on('question_reply', (reply) => {
     console.log("question reply");
-    setHistory((hist) => [...hist, reply]);
+    setHistory(() => {
+      console.log(history);
+      return [...history, reply];
+    });
   });
 
   socket.on('guess_reply', (reply) => {
     setWinStatus(reply.correct);
-    setHistory((hist) => [...hist, reply]);
+    setHistory(() => [...history, reply]);
   });
 
   socket.on('history', (reply) => {
