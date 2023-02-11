@@ -105,6 +105,12 @@ function App() {
           'name': name
         }
     );
+    socket.emit(
+      "request_history",
+      {
+        'room': room,
+      }
+    );
   }
 
   const handleAsk = (e) => {
