@@ -1,4 +1,5 @@
 import React, { useState, } from 'react';
+import styled from 'styled-components';
 import socketIOClient from 'socket.io-client';
 import './App.css';
 
@@ -8,6 +9,37 @@ var name = 'Guest';
 var socket = socketIOClient('http://localhost:5000/', {
   withCredentials: true,
 });
+
+// Creating a custom hook
+function useInput(defaultValue) {
+  const [value, setValue] = useState(defaultValue);
+  function onChange(e) {
+    setValue(e.target.value);
+  }
+  return {
+    value,
+    onChange,
+  };
+}
+
+const Button = styled.button`
+background-color: black;
+color: white;
+font-size: 20px;
+padding: 10px 60px;
+border-radius: 5px;
+margin: 10px 0px;
+cursor: pointer;
+`;
+
+const Input = styled.input`
+background-color: black;
+color: white;
+font-size: 20px;
+padding: 10px 60px;
+border-radius: 5px;
+margin: 10px 0px;
+`;
 
 function App() {
   const [history, setHistory] = useState([]);
@@ -105,10 +137,11 @@ function App() {
     resetGame();
   }
 
-  let historyAsList = Object.entries(history).map(([index, hist]) => {
+  let historyAsList = Object.entries(history).reverse().map(([index, hist]) => {
     console.log("i hate javascript: index -> " + index + " history data thing => " + hist.name + hist.question)
     if (hist.type === 'question') {
-      return <li key={index}>{hist.name} asked: "{hist.question}" which was replied to with "{hist.answer}"</li>
+      return <li key={index} style={{color: hist.answer=== "Yes." ? "green" : hist.answer === "No." ? "red" : "white" }}>
+        {hist.name} asked: "{hist.question}" which was replied to with "{hist.answer}"</li>
     } else if (hist.type === 'guess') {
       return <li key={index}>{hist.name} guessed: {hist.guess}, which was {hist.correct ? "" : "not "}correct</li>
     } else {
@@ -116,25 +149,27 @@ function App() {
     }
   });
 
+  const inputProps = useInput();
+
   return (
     <div className="App">
       <header className="App-header">
         <p>{winStatus ? "Winner!" : ""}</p>
-        <ul>{historyAsList}</ul>
         <div>
           <form onSubmit={handleAsk}>
-            <input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></input>
-            <button type="submit" onClick={handleAsk}>Ask</button>
-            <button type="submit" onClick={handleGuess}>Guess</button>
+            <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
+            <Button type="submit" onClick={handleAsk}>Ask</Button>
+            <Button type="submit" onClick={handleGuess}>Guess</Button>
           </form>
         </div>
         <div>
           <form onSubmit={handleRoomChange}>
-            <input type="text" value = {textRoom} onChange={(e) => setRoom(e.target.value)}></input>
-            <input type="text" value = {textName} onChange={(e) => setName(e.target.value)}></input>
-            <button type="submit" onClick={handleRoomChange}>Join Room</button>
+            <Input type="text" value = {textRoom} onChange={(e) => setRoom(e.target.value)}></Input>
+            <Input type="text" value = {textName} onChange={(e) => setName(e.target.value)}></Input>
+            <Button type="submit" onClick={handleRoomChange}>Join Room</Button>
           </form>
         </div>
+        <ul>{historyAsList}</ul>
       </header>
     </div>
   );
