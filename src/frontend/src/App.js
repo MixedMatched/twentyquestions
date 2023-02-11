@@ -5,7 +5,9 @@ import './App.css';
 var room = '0';
 var name = 'Guest';
 
-var socket = socketIOClient('http://localhost:5000/');
+var socket = socketIOClient('http://localhost:5000/', {
+  withCredentials: true,
+});
 
 function App() {
   const [history, setHistory] = useState([]);
