@@ -5,14 +5,14 @@ import './App.css';
 var room = '0';
 var name = 'Guest';
 
+var socket = socketIOClient('http://localhost:5000/');
+
 function App() {
   const [history, setHistory] = useState([]);
   const [question, setQuestion] = useState('');
   const [winStatus, setWinStatus] = useState(false);
   const [textRoom, setRoom] = useState(0);
   const [textName, setName] = useState('Guest');
-
-  var socket = socketIOClient('http://localhost:5000/');
 
   socket.on('connect', () => {
     if(room === '0') {
@@ -100,13 +100,14 @@ function App() {
     resetGame();
   }
 
-  let historyAsList = history.map((hist) => {
+  let historyAsList = Object.entries(history).map(([index, hist]) => {
+    console.log("i hate javascript: index -> " + index + " history data thing => " + hist.name + hist.question)
     if (hist.type === 'question') {
-      return <li>{hist.name} asked: "{hist.question}" which was replied to with "{hist.answer}"</li>
+      return <li key={index}>{hist.name} asked: "{hist.question}" which was replied to with "{hist.answer}"</li>
     } else if (hist.type === 'guess') {
-      return <li>{hist.name} guessed: {hist.guess}, which was {hist.correct ? "" : "not "}correct</li>
+      return <li key={index}>{hist.name} guessed: {hist.guess}, which was {hist.correct ? "" : "not "}correct</li>
     } else {
-      return <li>error</li>;
+      return <li key={index}>error</li>;
     }
   });
 
