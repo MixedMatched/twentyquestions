@@ -23,9 +23,11 @@ def generate_word():
 @socket_.on('connect')
 def on_connect():
     print(f"Connected to {request.sid} ...")
+    word = generate_word()
+    print(f"The word for {request.sid} is {word}.")
     games[request.sid] = {
             'history': [],
-            'word': generate_word(),
+            'word': word,
         }
 
 @socket_.on('join')
@@ -34,9 +36,11 @@ def on_join(data):
     print(f"Room: {room} joined...")
     join_room(room)
     if not room in games:
+        word = generate_word()
+        print(f"The word for {request.sid} is {word}.")
         games[room] = {
             'history': [],
-            'word': generate_word(),
+            'word': word,
         }
 
 @socket_.on('leave')

@@ -165,18 +165,18 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>{winStatus ? <Confetti width={width} height={height}/> : ""}</p>
+        <div class="topnav">
+          SOMETHINGLE
+          <a href="#friends">Play with Friends</a>
+          <a href="#settings">Settings</a>
+          <a href="#help">How to play</a>
+          <a href="#about">About</a>
+        </div> 
         <div>
           <form onSubmit={handleAsk}>
             <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
             <Button type="submit" onClick={handleAsk}>Ask</Button>
             <Button type="submit" onClick={handleGuess}>Guess</Button>
-          </form>
-        </div>
-        <div>
-          <form onSubmit={handleRoomChange}>
-            <Input type="text" value = {textRoom} onChange={(e) => setRoom(e.target.value)}></Input>
-            <Input type="text" value = {textName} onChange={(e) => setName(e.target.value)}></Input>
-            <Button type="submit" onClick={handleRoomChange}>Join Room</Button>
           </form>
         </div>
         <ul>{historyAsList}</ul>
