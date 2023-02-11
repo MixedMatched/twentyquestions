@@ -20,9 +20,18 @@ with open('aikey') as file:
 def generate_word():
     return random.choice(open('words.txt').read().splitlines())
 
+@socket_.on('connect')
+def on_connect():
+    print(f"Connected to {request.sid} ...")
+    games[request.sid] = {
+            'history': [],
+            'word': generate_word(),
+        }
+
 @socket_.on('join')
 def on_join(data):
     room = data['room']
+    print(f"Room: {room} joined...")
     join_room(room)
     if not room in games:
         games[room] = {
@@ -33,11 +42,13 @@ def on_join(data):
 @socket_.on('leave')
 def on_leave(data):
     room = data['room']
+    print(f"Room: {room} left...")
     leave_room(room)
 
 @socket_.on('request_history')
 def request_history(data):
     room = data['room']
+    print(f"Requesting history from: {room}")
 
     emit('history', {'history': games[room]['history']}, broadcast=False)
 
@@ -50,6 +61,8 @@ def guess(data):
 
     guess = data['guess']
 
+    print(f"{name} from {room} guessed {guess}")
+
     reply = {
         'type': 'guess',
         'guess': guess,
@@ -57,22 +70,27 @@ def guess(data):
         'name': name,
     }
 
+    print(f"this guess was {guess.lower() == games[room]['word'].lower()}")
+
     games[room]['history'].append(reply)
 
     emit('guess_reply', reply, include_self=True, to=room)
 
 @socket_.on('question')
 def question(data):
-    print("question")
+    print(f"question")
 
     room = data['room']
-    print(room)
     name = data['name']
 
     question = data['question']
     history = data['history']
 
+    print(f"{name} from {room} asked \"{question}\"")
+
     answer = get_answer(question, history, games[room]['word'])
+
+    print(f"the answer to {name}'s question was was {answer}")
 
     reply = {
         'type': 'question',
