@@ -30,7 +30,7 @@ const Button = styled.button`
 background-color: black;
 color: white;
 font-size: 20px;
-padding: 10px 60px;
+padding: 10px 40px;
 border-radius: 5px;
 margin: 10px 0px;
 cursor: pointer;
@@ -40,7 +40,7 @@ const Input = styled.input`
 background-color: black;
 color: white;
 font-size: 20px;
-padding: 10px 60px;
+padding: 10px 225px;
 border-radius: 5px;
 margin: 10px 0px;
 `;
@@ -196,7 +196,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>{winStatus ? <Confetti width={width} height={height}/> : ""}</p>
         <div class="topnav">
           SOMETHINGLE
           <div class="right">
@@ -233,6 +232,7 @@ function App() {
             <a href="#about">About</a>
           </div>
         </div> 
+        {winStatus ? <p>winBox()</p> : ""}
         <div>
           <form onSubmit={handleAsk}>
             <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
