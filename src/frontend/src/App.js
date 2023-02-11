@@ -2,6 +2,8 @@ import React, { useState, } from 'react';
 import styled from 'styled-components';
 import socketIOClient from 'socket.io-client';
 import './App.css';
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize'
 
 var room = '0';
 var name = 'Guest';
@@ -156,11 +158,13 @@ function App() {
   });
 
   const inputProps = useInput();
+  const { width, height } = useWindowSize();
+
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>{winStatus ? "Winner!" : ""}</p>
+        <p>{winStatus ? <Confetti width={width} height={height}/> : ""}</p>
         <div>
           <form onSubmit={handleAsk}>
             <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
