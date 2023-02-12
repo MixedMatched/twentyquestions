@@ -217,9 +217,9 @@ function App() {
     if (hist.type === 'question') {
       return <p><div class="left">({index}) [{hist.name}]: {hist.question} </div> <div class="right" style={{color: getColor(hist.answer)}}>{hist.answer}</div></p>
     } else if (hist.type === 'guess') {
-      return <div>({index}) [{hist.name}] Guessed {hist.guess} <div class="right" style={{color: getColor(hist.answer)}}>{hist.correct ? "Correct!":"Incorrect"}</div></div>
+      return <p><div class="left">({index}) [{hist.name}]: Guessed {hist.guess} </div> <div class="right">{hist.correct ? "Correct!":"Incorrect"}</div></p>
     } else {
-      return <li key={index}>error</li>;
+      return <p key={index}>error</p>;
     }
   });
 
@@ -265,7 +265,7 @@ function App() {
               <Button type="submit" onClick={handleGuess}>Guess</Button>
             </form>
           </div>
-          <div class="playarea">{historyAsList}</div>
+          {historyAsList}
         </div>
       </header>
     </div>
