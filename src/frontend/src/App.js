@@ -57,7 +57,7 @@ function getColor(answer) {
   }
 }
 
-function makePopUp(tri, head, str1, str2) {
+function makePopUp(tri, head, strs, inputs) {
   return <Popup
     trigger={tri}
     modal
@@ -70,18 +70,10 @@ function makePopUp(tri, head, str1, str2) {
         </button>
         <div className="header"> {head} </div>
         <div className="content">
-          {' '}
-          {str1}
-          <br />
-          {str2}
+          {strs.map((str) => {return <div>{str}<br /></div>;})}
         </div>
         <div className="actions">
-          <Popup
-            trigger={<button className="button"> Trigger </button>}
-            position="top center"
-            nested
-          >
-          </Popup>
+          {inputs}
         </div>
       </div>
     )}
@@ -212,6 +204,15 @@ function App() {
     setWinStatus(false);
   }
 
+  const handleRoomCreate = (e) => {
+    e.preventDefault();
+    setRoom(socket.id);
+    room = socket.id;
+    name = textName;
+    setName('');
+    resetGame();
+  }
+
   let historyAsList = Object.entries(history).reverse().map(([index, hist]) => {
     console.log("i hate javascript: index -> " + index + " history data thing => " + hist.name + hist.question)
     if (hist.type === 'question') {
@@ -242,17 +243,21 @@ function App() {
           SOMETHINGLE
           <div class="right">
             {makePopUp(<a href="#friends">Play with Friends</a>, 'Play with Friends', 
-              'To win, guess the word using only yes or no questions.',
-              'If you think you know the word, type it in and press the "Guess" button.')}
+              ['To win, guess the word using only yes or no questions.',
+              'If you think you know the word, type it in and press the "Guess" button.'], 
+              [<button onClick={handleRoomCreate}>Create Game</button>, 
+              <button onClick={handleRoomChange}>Join Game</button>, 
+              <input type="text" placeholder="Room ID" value={textRoom} onChange={e => setRoom(e.target.value)}/>, 
+              <input type="text" placeholder="Name" value={textName} onChange={e => setName(e.target.value)}/>])}
             {makePopUp(<a href="#settings">Settings</a>, 'Settings', 
-              'To win, guess the word using only yes or no questions.',
-              'If you think you know the word, type it in and press the "Guess" button.')}
+              ['To win, guess the word using only yes or no questions.',
+              'If you think you know the word, type it in and press the "Guess" button.'], [])}
             {makePopUp(<a href="#How to play"> How to Play </a>, 'How to Play', 
-              'To win, guess the word using only yes or no questions.',
-              'If you think you know the word, type it in and press the "Guess" button.')}
+              ['To win, guess the word using only yes or no questions.',
+              'If you think you know the word, type it in and press the "Guess" button.'], [])}
             {makePopUp(<a href="#about">About</a>, 'About', 
-              'Made by Northeastern students using GPT3',
-              'Credits: Alessandra Simmons, Riley Platz, and some other guy and also someone else')}
+              ['Made by Northeastern students using GPT3',
+              'Credits: Alessandra Simmons, Riley Platz, and some other guy and also someone else'], [])}
               
           </div>
         </div>
