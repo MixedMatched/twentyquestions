@@ -215,7 +215,7 @@ function App() {
   let historyAsList = Object.entries(history).reverse().map(([index, hist]) => {
     console.log("i hate javascript: index -> " + index + " history data thing => " + hist.name + hist.question)
     if (hist.type === 'question') {
-      return <ul><div class="left">({index}) [{hist.name}]: {hist.question} </div> <div class="right" style={{color: getColor(hist.answer)}}>{hist.answer}</div></ul>
+      return <p><div class="left">({index}) [{hist.name}]: {hist.question} </div> <div class="right" style={{color: getColor(hist.answer)}}>{hist.answer}</div></p>
     } else if (hist.type === 'guess') {
       return <div>({index}) [{hist.name}] Guessed {hist.guess} <div class="right" style={{color: getColor(hist.answer)}}>{hist.correct ? "Correct!":"Incorrect"}</div></div>
     } else {
@@ -265,7 +265,7 @@ function App() {
               <Button type="submit" onClick={handleGuess}>Guess</Button>
             </form>
           </div>
-          <ul>{historyAsList}</ul>
+          <div class="playarea">{historyAsList}</div>
         </div>
       </header>
     </div>
