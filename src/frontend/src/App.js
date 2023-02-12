@@ -55,6 +55,37 @@ function getColor(answer) {
   }
 }
 
+function makePopUp(tri, head, str1, str2) {
+  return <Popup
+    trigger={tri}
+    modal
+    nested
+  >
+    {close => (
+      <div className="modal">
+        <button className="close" onClick={close}>
+          &times;
+        </button>
+        <div className="header"> {head} </div>
+        <div className="content">
+          {' '}
+          {str1}
+          <br />
+          {str2}
+        </div>
+        <div className="actions">
+          <Popup
+            trigger={<button className="button"> Trigger </button>}
+            position="top center"
+            nested
+          >
+          </Popup>
+        </div>
+      </div>
+    )}
+  </Popup>
+}
+
 function App() {
   const [history, setHistory] = useState([]);
   const [question, setQuestion] = useState('');
@@ -209,9 +240,37 @@ function App() {
         <div class="topnav">
           SOMETHINGLE
           <div class="right">
-            <a href="#friends">Play with Friends</a>
-            <a href="#settings">Settings</a>
-            <Popup
+            {makePopUp(<a href="#friends">Play with Friends</a>, 'Play with Friends', 
+              'To win, guess the word using only yes or no questions.',
+              'If you think you know the word, type it in and press the "Guess" button.')}
+            {makePopUp(<a href="#settings">Settings</a>, 'Settings', 
+              'To win, guess the word using only yes or no questions.',
+              'If you think you know the word, type it in and press the "Guess" button.')}
+            {makePopUp(<a href="#How to play"> How to Play </a>, 'How to Play', 
+              'To win, guess the word using only yes or no questions.',
+              'If you think you know the word, type it in and press the "Guess" button.')}
+            {makePopUp(<a href="#about">About</a>, 'About', 
+              'Made by Northeastern students using GPT3',
+              'Credits: Alessandra Simmons, Julia Keadey, Riley Platz, and some other guy')}
+              
+          </div>
+        </div> 
+        {winStatus ? <p> {winBox()} </p> : ""}
+        <div>
+          <form onSubmit={handleAsk}>
+            <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
+            <Button type="submit" onClick={handleAsk}>Ask</Button>
+            <Button type="submit" onClick={handleGuess}>Guess</Button>
+          </form>
+        </div>
+        <ul>{historyAsList}</ul>
+      </header>
+    </div>
+  );
+}
+
+/*
+<Popup
             trigger={<a href="#How to play"> How to Play </a>}
             modal
             nested
@@ -239,21 +298,6 @@ function App() {
               </div>
             )}
           </Popup>
-            <a href="#about">About</a>
-          </div>
-        </div> 
-        {winStatus ? <p> {winBox()} </p> : ""}
-        <div>
-          <form onSubmit={handleAsk}>
-            <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
-            <Button type="submit" onClick={handleAsk}>Ask</Button>
-            <Button type="submit" onClick={handleGuess}>Guess</Button>
-          </form>
-        </div>
-        <ul>{historyAsList}</ul>
-      </header>
-    </div>
-  );
-}
+*/
 
 export default App;
