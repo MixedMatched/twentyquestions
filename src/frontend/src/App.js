@@ -251,7 +251,7 @@ function App() {
               'If you think you know the word, type it in and press the "Guess" button.')}
             {makePopUp(<a href="#about">About</a>, 'About', 
               'Made by Northeastern students using GPT3',
-              'Credits: Alessandra Simmons, Julia Keadey, Riley Platz, and some other guy')}
+              'Credits: Alessandra Simmons, Riley Platz, and some other guy and also someone else')}
               
           </div>
         </div> 
