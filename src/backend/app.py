@@ -127,7 +127,7 @@ def get_answer(question, history, word):
                 prompt = get_prompt(question, history, word),
                 temperature = 0.4, # TODO: experiment with this
                 max_tokens = 15,
-                stop = ["\n", "."]
+                stop = ["\n", ".", ","]
             ).choices[0].text[1::]) # type: ignore # TODO: limit reponses to "Yes", "No", "It depends", "I'm not sure", or "I'm not allowed to answer that question"
     else:
         return 'I\'m not allowed to answer that question'
