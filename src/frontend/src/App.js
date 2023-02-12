@@ -232,22 +232,21 @@ function App() {
           TWENTYQUESTIONSLE
           <div class="right">
             {makePopUp(<a href="#friends">Play with Friends</a>, 'Play with Friends', 
-              ['To win, guess the word using only yes or no questions.',
-              'If you think you know the word, type it in and press the "Guess" button.'], 
+              ['To create a lobby code, click "Create Game".',
+              "Paste a friend's lobby code in the box and hit join game to join their lobby."], 
               [<button onClick={handleRoomCreate}>Create Game</button>, 
               <button onClick={handleRoomChange}>Join Game</button>, 
               <input type="text" placeholder="Room ID" value={textRoom} onChange={e => setRoom(e.target.value)}/>, 
               <input type="text" placeholder="Name" value={textName} onChange={e => setName(e.target.value)}/>])}
             {makePopUp(<a href="#settings">Settings</a>, 'Settings', 
-              ['To win, guess the word using only yes or no questions.',
-              'If you think you know the word, type it in and press the "Guess" button.'], 
+              ['In this page you may toggle between light and dark mode or give up.'], 
               [<button onClick={ToggleTheme}>Change Theme</button>])}
             {makePopUp(<a href="#How to play"> How to Play </a>, 'How to Play', 
-              ['To win, guess the word using only yes or no questions.',
+              ['To win, ask yes or no questions to figure out what the word is.',
               'If you think you know the word, type it in and press the "Guess" button.'], [])}
             {makePopUp(<a href="#about">About</a>, 'About', 
               ['Made by Northeastern students using GPT3',
-              'Credits: Alessandra Simmons, Riley Platz, and some other guy and also someone else'], [])}
+              'Credits: Alessandra Simmons, Riley Platz, J Keadey, and James Brennan'], [])}
               
           </div>
         </div>
