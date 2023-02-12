@@ -5,6 +5,7 @@ import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import squose from './squose.png';
 
 var room = '0';
 var name = 'Guest';
@@ -229,6 +230,7 @@ function App() {
     <div className={'App ${theme}'}>
       <header className={theme}>
         <div class="topnav">
+        <img src={squose} alt='squose' height={50}></img>
           TWENTYQUESTIONSLE
           <div class="right">
             {makePopUp(<a href="#friends">Play with Friends</a>, 'Play with Friends', 
@@ -265,36 +267,5 @@ function App() {
     </div>
   );
 }
-
-/*
-<Popup
-            trigger={<a href="#How to play"> How to Play </a>}
-            modal
-            nested
-          >
-            {close => (
-              <div className="modal">
-                <button className="close" onClick={close}>
-                  &times;
-                </button>
-                <div className="header"> How to Play </div>
-                <div className="content">
-                  {' '}
-                  To win, guess the word using only yes or no questions.  
-                  <br />
-                  If you think you know the word, type it in and press the 'Guess' button.
-                </div>
-                <div className="actions">
-                  <Popup
-                    trigger={<button className="button"> Trigger </button>}
-                    position="top center"
-                    nested
-                  >
-                  </Popup>
-                </div>
-              </div>
-            )}
-          </Popup>
-*/
 
 export default App;
