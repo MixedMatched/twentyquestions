@@ -231,7 +231,7 @@ function App() {
       <header className={theme}>
         <div class="topnav">
         <img src={squose} alt='squose' height={50}></img>
-          TWENTYQUESTIONSLE
+          ASKLE
           <div class="right">
             {makePopUp(<a href="#friends">Play with Friends</a>, 'Play with Friends', 
               ['To create a lobby code, click "Create Game".',
@@ -240,9 +240,6 @@ function App() {
               <button onClick={handleRoomChange}>Join Game</button>, 
               <input type="text" placeholder="Room ID" value={textRoom} onChange={e => setRoom(e.target.value)}/>, 
               <input type="text" placeholder="Name" value={textName} onChange={e => setName(e.target.value)}/>])}
-            {makePopUp(<a href="#settings">Settings</a>, 'Settings', 
-              ['In this page you may toggle between light and dark mode or give up.'], 
-              [<button onClick={ToggleTheme}>Change Theme</button>])}
             {makePopUp(<a href="#How to play"> How to Play </a>, 'How to Play', 
               ['To win, ask yes or no questions to figure out what the word is.',
               'If you think you know the word, type it in and press the "Guess" button.'], [])}

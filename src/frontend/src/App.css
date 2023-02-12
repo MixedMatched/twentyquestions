@@ -10,7 +10,7 @@
   color: white;
 }
 
-.light {
+/* .light {
   background-color: #bbbec3;
   min-height: 100vh;
   display: flex;
@@ -18,13 +18,13 @@
   align-items: center;
   justify-content: top;
   font-size: 24px;
-  color: white;
-}
+  color: rgb(0, 0, 0);
+} */
 .App {
   text-align: center;
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -33,12 +33,12 @@
   justify-content: top;
   font-size: 24px;
   color: white;
-}
+} */
 
 /* Add a black background color to the top navigation */
 .topnav {
   width: 100%;
-  background-color: #3f045a;
+  background-color: #7749ac;
   overflow: hidden;
   display: flex;
   padding-left: 20px;
