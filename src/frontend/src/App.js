@@ -27,22 +27,24 @@ function useInput(defaultValue) {
 }
 
 const Button = styled.button`
-background-color: black;
 color: white;
-font-size: 20px;
-padding: 10px 40px;
-border-radius: 5px;
+background-color: rgb(51,51,51,100);
+width: 20%
+font-size: 40px;
+padding: 14px 40px;
+border-radius: 10px;
 margin: 10px 0px;
 cursor: pointer;
 `;
 
 const Input = styled.input`
-background-color: black;
 color: white;
+background-color: rgb(51,51,51,100);
+width: 60%;
 font-size: 20px;
-padding: 10px 225px;
-border-radius: 5px;
-margin: 10px 0px;
+padding: 10px 40px;
+border-radius: 10px;
+margin: 5px 0px;
 `;
 
 function getColor(answer) {
@@ -213,10 +215,9 @@ function App() {
   let historyAsList = Object.entries(history).reverse().map(([index, hist]) => {
     console.log("i hate javascript: index -> " + index + " history data thing => " + hist.name + hist.question)
     if (hist.type === 'question') {
-      return <li key={index} style={{color: getColor(hist.answer)}}>
-        {hist.name} asked: "{hist.question}" which was replied to with "{hist.answer}"</li>
+      return <ul><div class="left">({index}) [{hist.name}]: {hist.question} </div> <div class="right" style={{color: getColor(hist.answer)}}>{hist.answer}</div></ul>
     } else if (hist.type === 'guess') {
-      return <li key={index}>{hist.name} guessed: {hist.guess}, which was {hist.correct ? "" : "not "}correct</li>
+      return <div>({index}) [{hist.name}] Guessed {hist.guess} <div class="right" style={{color: getColor(hist.answer)}}>{hist.correct ? "Correct!":"Incorrect"}</div></div>
     } else {
       return <li key={index}>error</li>;
     }
@@ -254,16 +255,18 @@ function App() {
               'Credits: Alessandra Simmons, Riley Platz, and some other guy and also someone else')}
               
           </div>
-        </div> 
-        {winStatus ? <p> {winBox()} </p> : ""}
-        <div>
-          <form onSubmit={handleAsk}>
-            <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
-            <Button type="submit" onClick={handleAsk}>Ask</Button>
-            <Button type="submit" onClick={handleGuess}>Guess</Button>
-          </form>
         </div>
-        <ul>{historyAsList}</ul>
+        <div class="playarea">
+          {winStatus ? <p> {winBox()} </p> : ""}
+          <div>
+            <form onSubmit={handleAsk}>
+              <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
+              <Button type="submit" onClick={handleAsk}>Ask</Button>
+              <Button type="submit" onClick={handleGuess}>Guess</Button>
+            </form>
+          </div>
+          <ul>{historyAsList}</ul>
+        </div>
       </header>
     </div>
   );

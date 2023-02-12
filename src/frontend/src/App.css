@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: top;
-  font-size: 39px;
+  font-size: 24px;
   color: white;
 }
 
@@ -19,6 +19,9 @@
   background-color: #3f045a;
   overflow: hidden;
   display: flex;
+  padding-left: 20px;
+  padding-bottom: 4px;
+  font-size: 39px;
 }
 
 /* Style the links inside the navigation bar */
@@ -33,7 +36,7 @@
 
 .topnav .right {
   position: absolute;
-  right:0;
+  right: 0;
 }
 
 /* Change the color of links on hover */
@@ -87,4 +90,20 @@
   background: #797979;
   border-radius: 18px;
   border: 1px solid #424242;
+}
+
+.playarea {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.left {
+  float: left;
+  text-align: left;
+}
+
+.right {
+  float: right;
+  text-align: right;
 }
