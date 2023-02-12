@@ -1,5 +1,4 @@
 import React, { useState, } from 'react';
-import styled from 'styled-components';
 import socketIOClient from 'socket.io-client';
 import './App.css';
 import Confetti from 'react-confetti';
@@ -25,27 +24,6 @@ function useInput(defaultValue) {
     onChange,
   };
 }
-
-const Button = styled.button`
-color: white;
-background-color: rgb(51,51,51,100);
-width: 20%
-font-size: 40px;
-padding: 14px 40px;
-border-radius: 10px;
-margin: 10px 0px;
-cursor: pointer;
-`;
-
-const Input = styled.input`
-color: white;
-background-color: rgb(51,51,51,100);
-width: 60%;
-font-size: 20px;
-padding: 10px 40px;
-border-radius: 10px;
-margin: 5px 0px;
-`;
 
 function getColor(answer) {
   if(answer.toLowerCase().includes("yes")) {
@@ -233,14 +211,14 @@ function App() {
     <h2>Winner!</h2>
     <p>The word was {winWord}.</p>
     <p>You got the correct word in {history.length} tries.</p>
-    <Button type="submit" onClick={handleReset}>Try again?</Button>
+    <button type="submit" class="button" onClick={handleReset}>Try again?</button>
   </article>
 
   return (
     <div className="App">
       <header className="App-header">
         <div class="topnav">
-          SOMETHINGLE
+          TWENTYQUESTIONSLE
           <div class="right">
             {makePopUp(<a href="#friends">Play with Friends</a>, 'Play with Friends', 
               ['To win, guess the word using only yes or no questions.',
@@ -265,9 +243,9 @@ function App() {
           {winStatus ? <p> {winBox()} </p> : ""}
           <div>
             <form onSubmit={handleAsk}>
-              <Input type="text" value = {question} onChange={(e) => setQuestion(e.target.value)}></Input>
-              <Button type="submit" onClick={handleAsk}>Ask</Button>
-              <Button type="submit" onClick={handleGuess}>Guess</Button>
+              <input type="text" class ="textbox" value = {question} onChange={(e) => setQuestion(e.target.value)}></input>
+              <button type="submit" class="button" onClick={handleAsk}>Ask</button>
+              <button type="submit" class="button" onClick={handleGuess}>Guess</button>
             </form>
           </div>
           {historyAsList}

@@ -21,7 +21,7 @@ cereal
 milk
 butter
 justice
-yodelling
+yourmom
 beach
 cave
 canyon
@@ -40,8 +40,8 @@ month
 coat
 failure
 lake
-death
-grandmother
+goldfish
+goldfish
 depression
 sickness
 bath

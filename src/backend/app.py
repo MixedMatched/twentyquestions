@@ -105,7 +105,7 @@ def question(data):
 
     answer = get_answer(question, history, games[room]['word'])
 
-    print(f"the answer to {name}'s question was was {answer}")
+    print(f"the answer to {name}'s question was {answer}")
 
     reply = {
         'type': 'question',
