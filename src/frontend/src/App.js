@@ -191,6 +191,17 @@ function App() {
     resetGame();
   }
 
+  const [theme, setTheme] = useState('dark')
+
+  const ToggleTheme = () => {
+    console.log("theme change");
+    if(theme === 'dark') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    };
+  }
+
   let historyAsList = Object.entries(history).reverse().map(([index, hist]) => {
     console.log("i hate javascript: index -> " + index + " history data thing => " + hist.name + hist.question)
     if (hist.type === 'question') {
@@ -215,8 +226,8 @@ function App() {
   </article>
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className={'App ${theme}'}>
+      <header className={theme}>
         <div class="topnav">
           TWENTYQUESTIONSLE
           <div class="right">
@@ -229,7 +240,8 @@ function App() {
               <input type="text" placeholder="Name" value={textName} onChange={e => setName(e.target.value)}/>])}
             {makePopUp(<a href="#settings">Settings</a>, 'Settings', 
               ['To win, guess the word using only yes or no questions.',
-              'If you think you know the word, type it in and press the "Guess" button.'], [])}
+              'If you think you know the word, type it in and press the "Guess" button.'], 
+              [<button onClick={ToggleTheme}>Change Theme</button>])}
             {makePopUp(<a href="#How to play"> How to Play </a>, 'How to Play', 
               ['To win, guess the word using only yes or no questions.',
               'If you think you know the word, type it in and press the "Guess" button.'], [])}
