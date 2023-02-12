@@ -139,6 +139,7 @@ def treat_answer(answer):
     if answer == 'Yes' or answer == 'No' or answer == 'It depends' or answer == 'I\'m not sure' or answer == 'It\'s not possible to answer that question' or answer == 'Please ask a question' or answer == 'I\'m not allowed to answer that question':
         return answer
     else:
+        print(f'Answer was {answer} which is not valid. Returning "I\'m not allowed to answer that question".')
         return 'I\'m not allowed to answer that question'
 
 def get_prompt(question, history, word):
